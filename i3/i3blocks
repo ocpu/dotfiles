@@ -1,0 +1,52 @@
+command=~/.config/i3/blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[keyindicator]
+instance=CAPS
+interval=once
+signal=11
+
+#[keyindicator]
+#instance=NUM
+#interval=once
+#signal=11
+
+#[mediaplayer]
+#instance=spotify
+#interval=5
+#signal=10 Volume indicator
+
+[audio]
+label=♪
+instance=Master
+interval=once
+signal=10
+command=/home/ocpu/.config/i3/blocks/volume 5 pulse
+
+[iface]
+color=#00FF00
+interval=10
+separator=true
+
+[wifi]
+interval=10
+
+[cpu_usage]
+label=CPU
+interval=10
+min_width=CPU: 100.00%
+
+[brightness]
+command=echo "☀️ $(xbacklight | sed -e "s/\..*//")"
+interval=once
+signal=11
+
+[battery]
+label=⚡
+interval=30
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1
+

@@ -1,0 +1,256 @@
+# ----------------
+# -- Initial i3 --
+# ----------------
+
+# Set easy to use modifier shortcuts
+set $Alt Mod1
+set $Super Mod4
+
+# Setup default modifier key
+set $mod Mod4
+
+font pango:Fira Sans 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# ------------------------
+# -- Workspace settings --
+# ------------------------
+
+# Workspace names
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5: "
+set $ws6 "6: "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: "
+
+# Switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Move focused window to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Setup default window locations for apps
+assign [class="Chromium-browser"] $ws1
+assign [class="Firefox"] $ws1
+assign [class="Hyper"] $ws3
+assign [class="Spotify"] $ws10
+
+# --------------
+# -- i3 modes --
+# --------------
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize shrink height 10 px or 10 ppt
+  bindsym Up resize grow height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  bindsym Shift+Left resize shrink width 1 px or 1 ppt
+  bindsym Shift+Down resize shirnk height 1 px or 1 ppt
+  bindsym Shift+Up resize grow height 1 px or 1 ppt
+  bindsym Shift+Right resize grow width 1 px or 1 ppt
+
+  bindsym Ctrl+Left resize shrink width 50 px or 50 ppt
+  bindsym Ctrl+Down resize shrink height 50 px or 50 ppt
+  bindsym Ctrl+Up resize grow height 50 px or 50 ppt
+  bindsym Ctrl+Right resize grow width 50 px or 50 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+p mode "move"
+}
+
+bindsym $mod+r mode "resize"
+
+mode "move" {
+  bindsym Left move left 10px
+  bindsym Down move down 10px
+  bindsym Up move up 10px
+  bindsym Right move right 10px
+
+  bindsym Shift+Left move left 1px
+  bindsym Shift+Down move down 1px
+  bindsym Shift+Up move up 1px
+  bindsym Shift+Right move right 1px
+
+  bindsym Ctrl+Left move left 50px
+  bindsym Ctrl+Down move down 50px
+  bindsym Ctrl+Up move up 50px
+  bindsym Ctrl+Right move right 50px
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "resize"
+}
+
+bindsym $mod+p mode "move"
+
+# ---------------
+# -- i3 colors --
+# ---------------
+
+# Set color variables
+set $bg-color            #0c0e1433
+set $bg-inactive-color   #1e233333
+set $bg-urgent-color     #b7070788
+set $text-color          #fefefe
+set $text-inactive-color #efefef
+set $separator           #bfbfbf
+
+# Window Colors         border             background         text                 indicator (new window span)
+client.focused          $bg-color          $bg-color          $text-color          #000000
+client.unfocused        $bg-inactive-color $bg-inactive-color $text-inactive-color #000000
+client.focused_inactive $bg-inactive-color $bg-inactive-color $text-inactive-color #000000
+client.urgent           $bg-urgent-color   $bg-urgent-color   $text-color          #000000
+
+# --------------------
+# -- i3bar settings --
+# --------------------
+
+bar {
+  status_command i3blocks -c ~/.config/i3/i3blocks
+  i3bar_command i3bar -t
+  position top
+  height 25
+  colors {
+    background $bg-color
+    separator $separator
+    # Icon colors      border             background         text
+    focused_workspace  $bg-color          $bg-inactive-color $text-color
+    active_workspace   $bg-color          $bg-inactive-color $text-color
+    inactive_workspace $bg-inactive-color $bg-color          $text-inactive-color
+    urgent_workspace   $bg-urgent-color   $bg-urgent-color   $text-color
+  }
+}
+
+# -------------------------
+# -- Keybinds Default i3 --
+# -------------------------
+
+# Start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# ---------------------------
+# -- User created keybinds --
+# ---------------------------
+
+# Menu keybinds
+set $Menu-Programs rofi -show drun
+set $Menu-Windows rofi -show window
+
+bindsym $mod+d exec $Menu-Programs || dmenu
+bindsym $mod+space exec $Menu-Programs || dmenu
+bindsym $Alt+Tab exec $Menu-Windows || echo
+
+# Screen brightness controls
+set $Brightness-Amount 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc $Brightness-Amount -steps 1 && pkill -SIGRTMIN+11 i3blocks
+bindsym XF86MonBrightnessDown exec xbacklight -dec $Brightness-Amount -steps 1 && pkill -SIGRTMIN+11 i3blocks
+#bindsym XF86MonBrightnessUp exec light -A $Brightness-Amount && pkill -SIGRTMIN+11 i3blocks
+#bindsym XF86MonBrightnessDown exec light -U $Brightness-Amount && pkill -SIGRTMIN+11 i3blocks
+
+# Media player controls
+#bindsym XF86AudioPlay exec playerctl play
+#bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioMute exec amixer -D pulse sset 'Master' toggle && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset 'Master' 5%- && pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset 'Master' 5%+ && pkill -SIGRTMIN+10 i3blocks
+
+# System controls
+#bindsym $Super+l exec i3lock -e -t -i ~/.config/i3/background.jpg && systemctl suspend
+bindsym $Super+l exec i3lock-fancy
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Are you sure you want to logout?' -b 'Yes' 'i3-msg exit'"
+bindsym $mod+Shift+k exec "i3-nagbar -t error -m 'Are you sure you want to shutdown?' -b 'Yes' 'shutdown now'"
+bindsym $mod+Shift+c reload
+#bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec "xrandr --auto", restart
+
+# Toggle Keys
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+
+# Print Screen
+bindsym --release Print exec mkdir -p ~/Pictures/screenshots && scrot '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots/'
+bindsym --release Shift+Print exec mkdir -p ~/Pictures/screenshots && scrot -s '%Y-%m-%d_%H-%M-%S.png' -e 'mv $f ~/Pictures/screenshots/'
+
+# NOOP
+bindsym $mod+m exec echo "noop"
+
+new_window none
+
+# Set the background picture
+exec_always --no-startup-id feh --bg-fill ~/.config/i3/background.jpg
+
+# Setup window transparancy and fade effects
+exec xcompmgr -cfn -D 1 -o .5
+
+exec_always --no-startup-id nm-applet
+exec --no-startup-id i3-msg 'workspace $ws1; exec /usr/bin/chromium-browser'
+
+gaps inner 10
+
+force_xinerama yes
+
+exec bash /home/ocpu/.config/i3/fix-input
+
